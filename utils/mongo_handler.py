@@ -83,8 +83,8 @@ if __name__ == '__main__':
 
     query = {}
 
-    # for item in db.get_documents(query):
-    #     print(item)
+    for item in db.get_documents(query):
+        print(item)
 
     query = {"_id": ObjectId('61a65ba8bc5cf21a4d97d989')}
 
