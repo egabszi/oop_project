@@ -166,3 +166,7 @@ if __name__ == '__main__':
     print(handler.get_poster_list())
     print(handler.get_diff())
     # print(handler.get_movie_list())
+
+
+
+    #sikerült a github
