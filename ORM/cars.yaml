@@ -1,0 +1,29 @@
+car_name: Volvo S60
+engine_type: benzin
+color: white
+year_of_manufacture: 01-01-2013
+price: 5300000
+---
+car_name: Volkswagen Jetta
+engine_type: diesel
+color: orange
+year_of_manufacture: 01-01-2010
+price: 1500000
+---
+car_name: Toyota Prius
+engine_type: electric
+color: white
+year_of_manufacture: 01-01-2009
+price: 1700000
+---
+car_name: Renault Clio
+engine_type: benzin
+color: blue
+year_of_manufacture: 01-01-2004
+price: 450000
+---
+car_name: Opel Astra
+engine_type: benzin
+color: red
+year_of_manufacture: 01-01-2006
+price: 670000

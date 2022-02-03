@@ -57,11 +57,16 @@ class Search:
         except Exception as e:
             return False, str(e)
 
+        return poster_path
+
     def write_meta_data(self, data):
         if not os.path.exists(self.file_handler.meta_data_folder):
             return False, f"The given {self.file_handler.meta_data_folder} folder does not exists"
 
         file_path = os.path.join(self.file_handler.meta_data_folder, self.movie_name + '.json')
+
+        data['poster_location'] = os.path.join(self.file_handler.poster_folder, self.movie_name + '.jpg')
+        data['data_location'] = os.path.join(self.file_handler.folder_path, self.movie_name + '.mkv')
         return self.file_handler.write_file(file_path, data)
 
 if __name__ == '__main__':

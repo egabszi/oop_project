@@ -1,38 +1,58 @@
 import os
 import json
+
+from pymongo import database
 from utils. file_handler import FileHandler
 from utils.search import Search
 from utils.mongo_handler import MongoHandler
 
+
 def download_metadata():
     search = Search()
-    db = MongoHandler()
+    db= MongoHandler()
     file_handler = FileHandler()
 
-    #az összes adatot teljes egészében lekérjük, ezt refaktorálni kellene
-    database_movies = [{movie['search_name']: movie['poster_file_path']} for movie in db.get_documents({})]
+    #az összes adatot, teljes egészében lekérjük, ezt majd refaktorálni kellene
     poster_list = file_handler.get_poster_list()
 
-    print(database_movies)
+    movies = [movie['search_name']for movie in db.get_documents({})]
+    poster_path = [{movie['search_name']:movie['poster_path']} for movie in db.get_documents({})]
 
-    movies = [movie['search_name'] for movie in db.get_documents({})]
+
+    # print(poster_list)
+
+
+    # temp_posters = []
+    # for poster in poster_path:
+    #     temp_posters.append(list(poster.keys())[0])
+
+    # print(temp_posters)
+    
+    for item in movies:
+        if item not in poster_list:
+            for poster in poster_path:
+                if list(poster.keys())[0] == item:
+                    data = {'poster_path': list(poster.values())[0]}
+                    search.movie_name = item
+                    search.write_image(data)
+                    print(item)
+    
+
     for movie in file_handler.get_movie_list():
-        # database_movies[movie]- ez a poster_path érétékét adja vissza
-
+        # database_movie[movie] -> ez a poster_path értékét adja vissza
 
         if movie not in movies:
             data = search.get_json_data(movie)
-            data['search_name'] = movie
+            data['search_name']= movie
+
+        # poster letöltés
             poster_path = search.write_image(data)
+            print(poster_path)
 
             if poster_path:
                 data['poster_file_path'] = poster_path
 
             db.insert_document(data)
-
-
-    # poster letöltés
-
 
 
 
@@ -51,8 +71,6 @@ def download_metadata():
 # mielőtt betöltjük, a json-höz hozzá kellene adni a json-höz tartozó poster elérési útját
 
 
-
 if __name__ == '__main__':
     db = MongoHandler()
-
     download_metadata()
